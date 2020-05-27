@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/home');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/vehicle','VehiclesController@index');
+
+Route::get('/profile','ProfilesController@index');
+Route::post('/profile/{user}','ProfilesController@update');
