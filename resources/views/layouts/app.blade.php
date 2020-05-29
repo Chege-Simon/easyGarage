@@ -52,6 +52,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa fa-user"></i>
                                     {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}<span class="caret"></span>
                                 </a>
 
@@ -59,9 +60,11 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                                     <i class="fa fa-close"></i>
                                         {{ __('Logout') }}
                                     </a>
                                     <a class="dropdown-item" href="/profile">
+                                    <i class="fa fa-cogs"></i>
                                         Profile
                                     </a>
 
@@ -75,7 +78,10 @@
                 </div>
             </div>
         </nav>
-        <main class="p-4 column-md-9" style="min-height: 62.5vh" >
+        
+        @include('flashMessages')
+        
+        <main class="p-4" style="min-height: 62.5vh" >
             @yield('content')
         </main>
         <footer>

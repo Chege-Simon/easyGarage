@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('/home');
+    
+    if(Auth::check()){
+        return view('myVehicles');
+    }else{
+        return view('home');
+    }
+
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/vehicle','VehiclesController@index');
+Route::get('/vehicle','VehiclesController@index')->middleware('verified');
 
 Route::get('/profile','ProfilesController@index');
-Route::post('/profile/{user}','ProfilesController@update');
+Route::get('/profile/edit','ProfilesController@edit');
+Route::post('/profile/edit','ProfilesController@update');
+Route::get('/profile/delete','ProfilesController@delete');
+Route::post('/profile/delete','ProfilesController@destroy');

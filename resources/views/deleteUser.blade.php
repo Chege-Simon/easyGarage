@@ -19,7 +19,7 @@
                 <i class="fa fa-cogs"></i> Edit Profile
             </a>
             <br>
-            <a href="profile/delete" class="nav-item nav-link">
+            <a href="profile/delete" class="nav-item nav-link active">
                 <i class="fa fa-remove"></i> Delete Profile
             </a>
             <br>
@@ -31,7 +31,7 @@
     <div class="p-4 col-sm-9">
         <div class="container">
             <div class="container">
-                    <div class="display-4">PROFILE</div>
+                    <div class="display-4">DELETE ACCOUNT</div>
                     <div class="card-body">
                         <table class="table mt-4 table-bordered table-hover">
                             <thead style="background:#b1d1ea"><tr>
@@ -57,7 +57,12 @@
                         </tr>
                         </tbody>
                         </table>
-                    </div>
+                    <form action="/profile/delete">
+                        <button type="submit" name="cancel" formmethod="POST" class="btn btn-primary">Cancel</button>
+                        <button type="submit" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
+                        {{ csrf_field() }}
+                    </form>
+                </div>
             </div>                         
         </div>
     </div>  
