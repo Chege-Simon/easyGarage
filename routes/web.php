@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     
     if(Auth::check()){
-        return view('myVehicles');
+        return Redirect('/vehicle');
     }else{
         return view('home');
     }

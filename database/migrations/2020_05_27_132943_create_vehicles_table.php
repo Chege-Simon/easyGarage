@@ -19,6 +19,7 @@ class CreateVehiclesTable extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('color');
+            $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });
     }

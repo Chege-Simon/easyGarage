@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
+use Redirect;
 
 class VehiclesController extends Controller
 {
@@ -14,8 +16,14 @@ class VehiclesController extends Controller
     }
 
    
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
-        return view('myVehicles');
+        $user = Auth::user();
+        return view('myVehicles', compact('user'));
     }
 }
