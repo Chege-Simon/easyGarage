@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use Redirect;
+use App\Vehicle;
 
 class VehiclesController extends Controller
 {
@@ -25,5 +26,56 @@ class VehiclesController extends Controller
     {
         $user = Auth::user();
         return view('myVehicles', compact('user'));
+    }
+    public function add()
+    {
+        return view('addVehicle');
+    }
+    public function register(Request $request)
+    {
+        $id = Auth::user()->id;
+        $request->validate([
+            'number_plate' => ['required', 'string', 'max:255'],
+            'brand' => ['required', 'string', 'max:255'],
+            'model' => ['required', 'string','max:255'],
+            'color' => ['required']
+        ]);
+        $vehicle = new Vehicle();
+        $vehicle->number_plate = $request->number_plate;
+        $vehicle->brand = $request->brand;
+        $vehicle->model = $request->model;
+        $vehicle->color = $request->color;
+        $vehicle->user_id = $id;
+    	$vehicle->save();
+    	return Redirect::to('vehicle')->with('success','Great! Vehicle Registered successfully');
+    }
+
+    public function edit(Vehicle $vehicle)
+    {
+
+    	if (Auth::check() && Auth::user()->id == $vehicle->user_id)
+        {        
+            $user = Auth::user();    
+            return view('editVehicle', compact('vehicle'));
+        }           
+        else {
+             return redirect('/');
+         }
+    }
+    public function update(Request $request, Vehicle $vehicle)
+    {
+    	if(isset($_POST['delete'])) {
+    		$vehicle->delete();
+            return Redirect::to('vehicle')->with('success','The Vehicle has been deleted succesfully');
+    	}
+    	else
+    	{   		
+            $vehicle->number_plate = $request->number_plate;
+            $vehicle->brand = $request->brand;
+            $vehicle->model = $request->model;
+            $vehicle->color = $request->color;
+            $vehicle->save();
+            return Redirect::to('vehicle')->with('success','Great! Vehicle Details changed successfully');
+    	}    	
     }
 }

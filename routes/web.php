@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +26,11 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/vehicle','VehiclesController@index')->middleware('verified');
+Route::get('/vehicle/add','VehiclesController@add');
+Route::post('/vehicle/register','VehiclesController@register');
+Route::get('/vehicle/{vehicle}','VehiclesController@edit');
+Route::post('/vehicle/{vehicle}','VehiclesController@update');
+
 
 Route::get('/profile','ProfilesController@index');
 Route::get('/profile/edit','ProfilesController@edit');
