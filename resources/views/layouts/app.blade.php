@@ -78,7 +78,52 @@
                 </div>
             </div>
         </nav>
-        
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <nav class="nav nav-tabs col-sm-4 h5">   
+                @if (\Request::is('vehicle') || \Request::is('vehicle/*'))         
+                    <a href="/vehicle" class="nav-item nav-link active">
+                        <i class="fa fa-car"></i> Vehicles
+                    </a>
+                @else
+                    <a href="/vehicle" class="nav-item nav-link">
+                        <i class="fa fa-car"></i> Vehicles
+                    </a>
+                @endif                
+                @if (\Request::is('service/*') || \Request::is('service'))
+                    <a href="/services" class="nav-item nav-link active">
+                        <i class="fa fa-wrench"></i> Services
+                    </a>
+                @else
+                    <a href="/services" class="nav-item nav-link">
+                        <i class="fa fa-wrench"></i> Services
+                    </a>
+                @endif
+                <!-- remember to change when you change the info page -->
+                @if (\Request::is('profile') || \Request::is('profile/*')) 
+                    <a href="/profile" class="nav-item nav-link active" >
+                        <i class="fa fa-info"></i> Info
+                    </a>
+                @else
+                    <a href="/profile" class="nav-item nav-link" >
+                        <i class="fa fa-info"></i> Info
+                    </a>
+                @endif
+                @if (\Request::is('assistant/*') || \Request::is('assistant')) 
+                    <a href="/assistant" class="nav-item nav-link active">
+                        <i class="fa fa-phone"></i> Assistant
+                    </a>
+                @else 
+                    <a href="/assistant" class="nav-item nav-link">
+                        <i class="fa fa-phone"></i> Assistant
+                    </a>
+                @endif
+            </nav>
+            <div class="col-sm-4"></div>
+        </div>
+        <br>
         @include('flashMessages')
         
         <main class="p-4" style="min-height: 62.5vh" >

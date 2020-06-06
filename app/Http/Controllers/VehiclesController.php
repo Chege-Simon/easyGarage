@@ -33,23 +33,27 @@ class VehiclesController extends Controller
     }
     public function register(Request $request)
     {
-        $id = Auth::user()->id;
-        $request->validate([
-            'number_plate' => ['required', 'string', 'max:255'],
-            'brand' => ['required', 'string', 'max:255'],
-            'model' => ['required', 'string','max:255'],
-            'color' => ['required']
-        ]);
-        $vehicle = new Vehicle();
-        $vehicle->number_plate = $request->number_plate;
-        $vehicle->brand = $request->brand;
-        $vehicle->model = $request->model;
-        $vehicle->color = $request->color;
-        $vehicle->user_id = $id;
-    	$vehicle->save();
-    	return Redirect::to('vehicle')->with('success','Great! Vehicle Registered successfully');
+        if(Vehicle::where('number_plate', '=', $request->number_plate)){          
+            return Redirect::to('vehicle')->with('warning','Duplicate vehicle details!');
+        }else{            
+            $id = Auth::user()->id;
+            $request->validate([
+                'number_plate' => ['required', 'string', 'max:255'],
+                'brand' => ['required', 'string', 'max:255'],
+                'model' => ['required', 'string','max:255'],
+                'color' => ['required']
+            ]);
+            $plate = strtolower(str_replace(' ','',$request->number_plate));
+            $vehicle = new Vehicle();
+            $vehicle->number_plate = $plate;
+            $vehicle->brand = $request->brand;
+            $vehicle->model = $request->model;
+            $vehicle->color = $request->color;
+            $vehicle->user_id = $id;
+            $vehicle->save();
+            return Redirect::to('vehicle')->with('success','Great! Vehicle Registered successfully');
+        }
     }
-
     public function edit(Vehicle $vehicle)
     {
 
@@ -66,7 +70,7 @@ class VehiclesController extends Controller
     {
     	if(isset($_POST['delete'])) {
     		$vehicle->delete();
-            return Redirect::to('vehicle')->with('success','The Vehicle has been deleted succesfully');
+            return Redirect::to('vehicle')->with('warning','The Vehicle has been deleted succesfully');
     	}
     	else
     	{   		
