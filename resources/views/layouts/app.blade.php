@@ -93,11 +93,11 @@
                     </a>
                 @endif                
                 @if (\Request::is('service/*') || \Request::is('service'))
-                    <a href="/services" class="nav-item nav-link active">
+                    <a href="/service" class="nav-item nav-link active">
                         <i class="fa fa-wrench"></i> Services
                     </a>
                 @else
-                    <a href="/services" class="nav-item nav-link">
+                    <a href="/service" class="nav-item nav-link">
                         <i class="fa fa-wrench"></i> Services
                     </a>
                 @endif

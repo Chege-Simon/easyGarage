@@ -18,14 +18,6 @@
             <a href="/vehicle/add" class="nav-item nav-link active">
                 <i class="fa fa-cogs"></i> Register Vehicle
             </a>
-            <!-- <br>
-            <a href="/vehicle/edit" class="nav-item nav-link">
-                <i class="fa fa-remove"></i> Edit Vehicle Details
-            </a>
-            <br>
-            <a href="/vehicle/delete" class="nav-item nav-link">
-                <i class="fa fa-remove"></i> Delete Vehicle Details
-            </a> -->
         </nav>
     </div>
     <div class="p-4 col-sm-9">

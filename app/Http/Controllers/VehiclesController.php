@@ -33,7 +33,7 @@ class VehiclesController extends Controller
     }
     public function register(Request $request)
     {
-        if(Vehicle::where('number_plate', '=', $request->number_plate)){          
+        if(Vehicle::where('number_plate', $request->number_plate)->first()){          
             return Redirect::to('vehicle')->with('warning','Duplicate vehicle details!');
         }else{            
             $id = Auth::user()->id;

@@ -37,3 +37,9 @@ Route::get('/profile/edit','ProfilesController@edit');
 Route::post('/profile/edit','ProfilesController@update');
 Route::get('/profile/delete','ProfilesController@delete');
 Route::post('/profile/delete','ProfilesController@destroy');
+
+Route::get('/service','ServicesController@index');
+Route::get('/service/add','ServicesController@add');
+Route::post('/service/request','ServicesController@request');
+Route::get('/service/{service}','ServicesController@edit');
+Route::post('/service/{service}','ServicesController@update');
