@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
-use Redirect;
+use Redirect, Response;
 use App\Vehicle;
+use App\Employee;
 
 class ServicesController extends Controller
 {
@@ -14,16 +15,6 @@ class ServicesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-   
-    public function numOfServices()
-    {            
-    foreach($vehicles as $vehicle){
-        if(count($vehicle->services)>0){
-            return $num+=1; 
-        }
-    }
     }
     /**
      * Show the application dashboard.
@@ -38,7 +29,13 @@ class ServicesController extends Controller
     }
     public function add()
     {
-        return view('addService');
+        $employees = Employee::all();
+        return view('addService',compact('employees'));
+    }
+    public function employeelist()
+    {
+
+        return Response::json($employees);
     }
 }
 

@@ -46,7 +46,25 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="area" class="col-md-4 col-form-label text-md-right">{{ __('Area of Attention') }}</label>
 
+                            <div class="col-md-6">
+                                <select class="custom-select" id="service_area">
+                                    <option selected>Select Area of Attention...</option>
+                                    <option value="Body work">Body work</option>
+                                    <option value="Engine">Engine</option>
+                                    <option value="Electrical">Electrical</option>
+                                    <option value="General Maintainace">General Maintainace (like oil change)</option>
+                                    <option value="Wheel Alignment">Wheel Alignment</option>
+                                </select>
+                                @error('area')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
@@ -87,26 +105,28 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group">
                             <label for="mechanic" class="col-md-4 col-form-label text-md-right">{{ __('Mechanic') }}</label>
-
-                            <div class="col-md-6">
-                                <div class="card" style="width: 150px;">
-                                    <i class="fa fa-user" class="card-img-top" aria-hidden="true" style="font-size:10em; margin-left:auto;margin-right:auto;"></i>
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">{{$employee ?? ''->first_name}} {{$employee ?? ''->last_name}}</h5>
-                                        <p class="card-text">
-                                        <strong>Specialist in:</strong>{{$employee ?? ''->speciality}}
-                                        <strong>Employee rating:</strong>{{$employee ?? ''->rating}}
-                                        </p>
-                                        <a href="#" class="btn btn-primary">View Profile</a>
+                            <div class=" row" style=" overflow-x: scroll; max-width:800px; margin-left:100px">
+                            @foreach($employees as $employee)
+                                <div class="col" style="display:inline-block;">
+                                    <div class="card" style="width: 200px;">
+                                        <i class="fa fa-user" class="card-img-top" aria-hidden="true" style="font-size:10em; margin-left:auto;margin-right:auto;"></i>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">{{$employee ->first_name}} {{$employee->last_name}}</h5>
+                                            <p class="card-text">
+                                            <p><strong>Specialist in: </strong>{{$employee->Speciality}}</p>
+                                            <p><strong>Employee rating: </strong>{{$employee->ratings}}</p>
+                                            </p>
+                                        </div>
                                     </div>
+                                    @error('mechanic')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                                @error('mechanic')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            @endforeach
                             </div>
                         </div>
                         <div class="form-group row mb-0">
