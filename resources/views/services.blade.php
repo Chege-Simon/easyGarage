@@ -22,35 +22,54 @@
         </nav>
     </div>
     <div class="p-4 col-sm-9">
-        <div class="container">
-            <div class="container">
-                <div class="display-4">SERVICES</div>
-                <div class="card-body">
-                @if(count($user->vehicles) > 0)
-                    <p class="h2 darker"><u>Scheduled Services</u></p>
-                    <table class="table mt-4 table-bordered table-hover">
-                        <thead style="background:#a5a5a5">
-                        </thead>
-                        <tbody>
-                                @foreach($vehicles as $vehicle)
-                                    @if(count($vehicle->services)>0)
-                                        @foreach($vehicle->services as $service)
-                                            <tr>
-                                                <td><div class="btn">{{ $service->type }}</div></td>
-                                                <td><div class="btn">{{ $service->description }}</div></td>
-                                                <td><div class="btn">{{ $service->time-start }}</div></td>
-                                                <td><div class="btn">{{ $service->time-end }}</div></td>
-                                                <td><div class="btn">{{ $service->is_in_progress }}</div></td>
-                                                <td><div class="btn">{{ $service->is_cleared }}</div></td>
-                                                <td>
-                                                    <form action="/service/{{$service->id}}">
-                                                        <button type="submit" name="edit" class="btn btn-primary">Edit</button>
-                                                        <button type="submit" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
-                                                        {{ csrf_field() }}
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            @endforeach
+        <div class="">
+            <div class="display-4">SERVICES</div>
+            <p class="h2 darker"><u>Scheduled Services</u></p>
+            <div class="card-body">
+            @if(count($user->vehicles) > 0)
+                <table class="table mt-4 table-bordered table-hover text-center">
+                    <thead style="background-color:#b1d1ea">
+                        <tr>
+                            <th>Vehicle</th>
+                            <th>Type of Service</th>
+                            <th>Description</th>
+                            <th>start</th>
+                            <th>Estmate End</th>
+                            <th>Assigned to:</th>
+                            <th>Stage</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody style="overflow-y: scroll; max-height:400px;">
+                            @foreach($vehicles as $vehicle)
+                                @foreach($vehicle->services as $service)
+                                    @if($service)
+                                        <tr>
+                                            <td><div class="btn">{{ $service->vehicle->number_plate }}</div></td>
+                                            <td><div class="btn">{{ $service->type }}</div></td>
+                                            <td><div class="btn">{{ $service->description }}</div></td>
+                                            <td><div class="btn">{{ $service->time_start }}</div></td>
+                                            <td><div class="btn">{{ $service->time_end }}</div></td>
+                                            <td><div class="btn">{{ $service->employee->first_name }} {{ $service->employee->last_name }}</div></td>
+                                            <td><div class="btn">@switch($service->is_cleared)
+                                                                    @case (0)
+                                                                        <span style="background:orange; padding:5px; border-radius:10%">Waiting...</span>
+                                                                        @break
+                                                                    @case (1)
+                                                                        <span style="background:green">In progress...</span>
+                                                                        @break
+                                                                    @default
+                                                                        <span style="background:orange">Waiting...</span>
+                                                                        @endswitch
+                                                                    </div></td>
+                                            <td>
+                                                <form action="/service/{{$service->id}}">
+                                                    <button type="submit" name="edit" class="btn btn-primary" style="margin:2px">Edit</button>
+                                                    <button type="submit" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
+                                                    {{ csrf_field() }}
+                                                </form>
+                                            </td>
+                                        </tr>
                                         @else
                                             <tr>                                                 
                                                 <div class="container">
@@ -59,18 +78,18 @@
                                                 </div>
                                             </tr>
                                         @endif
-                                @endforeach
-                        </tbody>
-                    </table>
-                    @else
-                        <div class="container">
-                            <div class="fa fa-frown-o text-muted" aria-hidden="true" style="font-size: 10rem; margin-left: 40%"></div>                           
-                            <div class="text-muted text-justify" style=" margin-left: 30%">Oops, You dont have any registered vehicles yet!</div>
-                        </div>
-                    @endif
-                </div>
-            </div>                         
-        </div>
+                                    @endforeach
+                            @endforeach
+                    </tbody>
+                </table>
+                @else
+                    <div class="container">
+                        <div class="fa fa-frown-o text-muted" aria-hidden="true" style="font-size: 10rem; margin-left: 40%"></div>                           
+                        <div class="text-muted text-justify" style=" margin-left: 30%">Oops, You dont have any registered vehicles yet!</div>
+                    </div>
+                @endif
+            </div>
+        </div> 
     </div>  
     @else
         <div class="card-body">

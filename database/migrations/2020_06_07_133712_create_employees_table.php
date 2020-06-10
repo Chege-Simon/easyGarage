@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('national_id')->unique();
             $table->string('email')->unique();
             $table->string('speciality');
-            $table->string('ratings');
+            $table->float('rating');
             $table->timestamps();
         });
     }

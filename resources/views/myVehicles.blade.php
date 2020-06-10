@@ -28,14 +28,15 @@
                 <div class="card-body">
                     @if(count($user->vehicles) > 0)
                     <p class="h2 darker"><u>My Vehicles</u></p>
-                    <table class="table mt-4 table-bordered table-hover">
-                        <thead style="background:#a5a5a5">
-                            <!-- <tr>
-                                <td>Number Plate</td>
-                                <td>Brand</td>
-                                <td>Model</td>
-                                <td>Color</td>
-                            </tr> -->
+                    <table class="table mt-4 table-bordered table-hover text-center">  
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Number Plate</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Color</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
                                 @foreach($user->vehicles as $vehicle)
@@ -46,8 +47,8 @@
                                         <td><div class="btn" style="background-color:{{ $vehicle->color }};">Color</div></td>
                                         <td>
                                             <form action="/vehicle/{{$vehicle->id}}">
-                                                <button type="submit" name="edit" class="btn btn-primary">Edit</button>
-                                                <button type="submit" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
+                                                <button type="submit" name="edit" class="btn btn-primary"style="margin:2px">Edit</button>
+                                                <button type="submit" name="delete" formmethod="POST" class="btn btn-danger" style="margin:2px">Delete</button>
                                                 {{ csrf_field() }}
                                             </form>
                                         </td>

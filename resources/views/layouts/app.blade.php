@@ -11,7 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <!-- favicon -->
+    <link rel="shortcut icon" href="ignite.png">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -60,11 +61,11 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                     <i class="fa fa-close"></i>
+                                                     <i class="fa fa-sign-out"></i>
                                         {{ __('Logout') }}
                                     </a>
                                     <a class="dropdown-item" href="/profile">
-                                    <i class="fa fa-cogs"></i>
+                                    <i class="fa fa-user"></i>
                                         Profile
                                     </a>
 
