@@ -44,4 +44,4 @@ Route::post('/service/request','ServicesController@request');
 Route::get('/service/{service}','ServicesController@edit');
 Route::post('/service/{service}','ServicesController@update');
 
-Route::post('/ajax','ServicesController@crud_ajax');
+Route::post('/employee','ServicesController@cemployee_list');

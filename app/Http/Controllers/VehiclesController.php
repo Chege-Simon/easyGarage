@@ -82,4 +82,9 @@ class VehiclesController extends Controller
             return Redirect::to('vehicle')->with('success','Great! Vehicle Details changed successfully');
     	}    	
     }
+    public function delete(Request $request)
+    {
+        $vehicle->delete();
+        return response()->json(['sucess'=>'The Vehicle has been deleted succesfullly']);
+    }
 }

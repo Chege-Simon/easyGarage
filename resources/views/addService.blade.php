@@ -158,7 +158,7 @@
     })
         $('#service_area').change(function () {    
             var service_area = $(this).val(); 
-            $.post("/ajax",{
+            $.post("/employee",{
                 service_area: service_area
             }, function (data, status) {
                 
