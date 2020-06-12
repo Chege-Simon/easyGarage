@@ -124,9 +124,6 @@
                         <div class="form-group">
                             <label for="mechanic" class="col-md-4 col-form-label text-md-right">{{ __('Mechanic') }}</label>
                             <div class=" row" id="employee_list" style=" overflow-x: scroll;margin-left:100px;">
-                            @foreach($employees as $employee)
-                                
-                            @endforeach
                             </div>
                         </div>
                         <div class="form-group row mb-0">

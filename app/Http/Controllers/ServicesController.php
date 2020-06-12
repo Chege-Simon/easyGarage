@@ -147,7 +147,7 @@ class ServicesController extends Controller
     }
     public function crud_ajax(Request $request)
     {
-        $data = Employee::where('speciality', $request->service_area)->take(10)->get();
+        $data = Employee::where('speciality', $request->service_area)->take(3)->orderBy('rating', 'desc')->get();
         return response()->json(['result'=>$data]);
     }
 }
