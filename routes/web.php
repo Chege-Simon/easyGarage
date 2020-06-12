@@ -43,3 +43,5 @@ Route::get('/service/add','ServicesController@add');
 Route::post('/service/request','ServicesController@request');
 Route::get('/service/{service}','ServicesController@edit');
 Route::post('/service/{service}','ServicesController@update');
+
+Route::post('/ajax','ServicesController@crud_ajax');

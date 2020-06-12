@@ -48,7 +48,7 @@
                                         <td>
                                             <form action="/vehicle/{{$vehicle->id}}">
                                                 <button type="submit" name="edit" class="btn btn-primary"style="margin:2px">Edit</button>
-                                                <button type="submit" name="delete" formmethod="POST" class="btn btn-danger" style="margin:2px">Delete</button>
+                                                <button type="submit" onclick="return confirm('Are you sure you want to Remove?');" name="delete" formmethod="POST" class="btn btn-danger" style="margin:2px">Delete</button>
                                                 {{ csrf_field() }}
                                             </form>
                                         </td>

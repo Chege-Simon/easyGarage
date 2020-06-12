@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Service')
 
 @section('content')
 <div class="container">
@@ -123,26 +123,9 @@
                         </div>
                         <div class="form-group">
                             <label for="mechanic" class="col-md-4 col-form-label text-md-right">{{ __('Mechanic') }}</label>
-                            <div class=" row" style=" overflow-x: scroll;margin-left:100px;">
+                            <div class=" row" id="employee_list" style=" overflow-x: scroll;margin-left:100px;">
                             @foreach($employees as $employee)
-                                <div class="col-md-4">
-                                    <div class="card" style="width: 200px; height:380px; margin:10px">
-                                        <i class="fa fa-user" class="card-img-top" aria-hidden="true" style="font-size:10em; margin-left:auto;margin-right:auto;"></i>
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title">{{$employee ->first_name}} {{$employee->last_name}}</h5>
-                                            <p class="card-text">
-                                            <p><strong>Specialist in: </strong>{{$employee->speciality}}</p>
-                                            <p><strong>Employee rating: </strong>{{$employee->rating}}</p>
-                                            </p>
-                                            <p class="btn btn-secondary"><input type='radio' name="employee_id" id="employee_id" value="{{$employee->id}}">Select</p>
-                                        </div>
-                                    </div>
-                                    @error('mechanic')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                
                             @endforeach
                             </div>
                         </div>
@@ -166,3 +149,49 @@
 </div>
 </div>
 @endsection
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    })
+        $('#service_area').change(function () {    
+            var service_area = $(this).val(); 
+            $.post("/ajax",{
+                service_area: service_area
+            }, function (data, status) {
+                
+                const container = document.getElementById('employee_list');
+                container.innerHTML = ''
+                data.result.forEach((employee) => {
+                    // Create card element
+                    const card = document.createElement('div');
+                    card.classList = 'col-md-4';
+
+                    // Construct card content
+                    const content = `
+                        <div class="card" style="width: 200px; height:380px; margin:10px">
+                            <i class="fa fa-user" class="card-img-top" aria-hidden="true" style="font-size:10em; margin-left:auto;margin-right:auto;"></i>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">${employee.first_name} ${employee.last_name}</h5>
+                                <p class="card-text">
+                                <p><strong>Specialist in: </strong>${employee.speciality}</p>
+                                <p><strong>Employee rating: </strong>${employee.rating}</p>
+                                </p>
+                                <p class="btn btn-secondary"><input type='radio' name="employee_id" id="employee_id" value="${employee.id}">Select</p>
+                            </div>
+                        </div>
+                    `;
+
+                    // Append newyly created card element to the container
+                    container.innerHTML += content;
+                })
+            })
+        })
+    });
+
+</script>

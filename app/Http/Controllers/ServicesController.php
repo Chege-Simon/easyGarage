@@ -80,14 +80,13 @@ class ServicesController extends Controller
         $service->save();
         return Redirect::to('service')->with('success','Great! service Registered successfully');
     }
-    public function edit(Vehicle $vehicle, Request $request)
+    public function edit(Vehicle $vehicle, Request $request, $service)
     {
-        $id = $request->service;
     	if (Auth::check())
-        {        
-            $service = Service::find($id); 
-            $vehicle = $service->vehicle;   
+        {   
+            $service = Service::find($service);   
             $vehicles = Auth::user()->vehicles;
+            $vehicle =Vehicle::find($service->vehicle_id); 
             $employees = Employee::orderBy('rating', 'asc')->paginate(3);
             // dd($vehicle->id);
             return view('editService', compact('service', 'vehicle', 'vehicles', 'employees'));
@@ -141,6 +140,15 @@ class ServicesController extends Controller
             $service->save();
             return Redirect::to('service')->with('success','Great! Service Details changed successfully');
     	}    	
+    }
+    public function ajax()
+    {
+            
+    }
+    public function crud_ajax(Request $request)
+    {
+        $data = Employee::where('speciality', $request->service_area)->take(10)->get();
+        return response()->json(['result'=>$data]);
     }
 }
 

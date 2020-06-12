@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Vehicles')
+@section('title', 'Service')
 
 @section('content')
 <div class="container">
@@ -42,8 +42,8 @@
                     </thead>
                     <tbody style="overflow-y: scroll; max-height:400px;">
                             @foreach($vehicles as $vehicle)
-                                @foreach($vehicle->services as $service)
-                                    @if($service)
+                                @if(count($vehicle->services)>0)
+                                    @foreach($vehicle->services as $service)
                                         <tr>
                                             <td><div class="btn">{{ $service->vehicle->number_plate }}</div></td>
                                             <td><div class="btn">{{ $service->type }}</div></td>
@@ -64,28 +64,28 @@
                                                                     </div></td>
                                             <td>
                                                 <form action="/service/{{$service->id}}">
-                                                    <button type="submit" name="edit" class="btn btn-primary" style="margin:2px">Edit</button>
-                                                    <button type="submit" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" name="edit" class="btn btn-primary" style="margin:2px">Edit </button>
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to Remove?');" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
                                                     {{ csrf_field() }}
                                                 </form>
                                             </td>
                                         </tr>
-                                        @else
-                                            <tr>                                                 
-                                                <div class="container">
-                                                    <div class="fa fa-frown-o text-muted" aria-hidden="true" style="font-size: 10rem; margin-left: 40%"></div>                           
-                                                    <div class="text-muted text-justify" style=" margin-left: 30%">Oops, You dont have any services in schedule yet!</div>
-                                                </div>
-                                            </tr>
-                                        @endif
                                     @endforeach
+                                @else
+                                    <tr>                                                 
+                                        <div class="container">
+                                            <div class="fa fa-frown-o text-muted" aria-hidden="true" style="font-size: 10rem; margin-left: 40%"></div>                           
+                                            <div class="text-muted text-justify" style=" margin-left: 30%">Oops, You dont have any services in schedule yet!</div>
+                                        </div>
+                                    </tr>
+                                @endif
                             @endforeach
                     </tbody>
                 </table>
                 @else
                     <div class="container">
                         <div class="fa fa-frown-o text-muted" aria-hidden="true" style="font-size: 10rem; margin-left: 40%"></div>                           
-                        <div class="text-muted text-justify" style=" margin-left: 30%">Oops, You dont have any registered vehicles yet!</div>
+                        <div class="text-muted text-justify" style=" margin-left: 30%">Oops, You need to register a vehicle first</div>
                     </div>
                 @endif
             </div>

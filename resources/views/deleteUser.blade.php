@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Profile')
 
 @section('content')
 <div class="container">
@@ -59,7 +60,7 @@
                         </table>
                     <form action="/profile/delete">
                         <button type="submit" name="cancel" formmethod="POST" class="btn btn-primary">Cancel</button>
-                        <button type="submit" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
+                        <button type="submit" onclick="return confirm('Are you sure you want to Delete Your Account?');" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
                         {{ csrf_field() }}
                     </form>
                 </div>
