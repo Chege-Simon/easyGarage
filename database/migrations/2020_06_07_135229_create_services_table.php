@@ -23,8 +23,9 @@ class CreateServicesTable extends Migration
             $table->date('date_set');
             $table->time('time_start');
             $table->time('time_end');
-            $table->boolean('is_in_progress');
+            $table->boolean('is_in_progress')->nullable();
             $table->boolean('is_cleared');
+            $table->boolean('is_paid');
             $table->timestamps();
         });
     }

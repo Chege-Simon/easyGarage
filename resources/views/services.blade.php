@@ -44,32 +44,45 @@
                             @foreach($vehicles as $vehicle)
                                 @if(count($vehicle->services)>0)
                                     @foreach($vehicle->services as $service)
-                                        <tr>
-                                            <td><div class="btn">{{ $service->vehicle->number_plate }}</div></td>
-                                            <td><div class="btn">{{ $service->type }}</div></td>
-                                            <td><div class="btn">{{ $service->description }}</div></td>
-                                            <td><div class="btn">{{ $service->time_start }}</div></td>
-                                            <td><div class="btn">{{ $service->time_end }}</div></td>
-                                            <td><div class="btn">{{ $service->employee->first_name }} {{ $service->employee->last_name }}</div></td>
-                                            <td><div class="btn">@switch($service->is_cleared)
-                                                                    @case (0)
-                                                                        <span style="background:orange; padding:5px; border-radius:10%">Waiting...</span>
-                                                                        @break
-                                                                    @case (1)
-                                                                        <span style="background:green">In progress...</span>
-                                                                        @break
-                                                                    @default
-                                                                        <span style="background:orange">Waiting...</span>
-                                                                        @endswitch
-                                                                    </div></td>
-                                            <td>
-                                                <form action="/service/{{$service->id}}">
-                                                    <button type="submit" name="edit" class="btn btn-primary" style="margin:2px">Edit </button>
-                                                    <button type="submit" onclick="return confirm('Are you sure you want to Remove?');" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
-                                                    {{ csrf_field() }}
-                                                </form>
-                                            </td>
-                                        </tr>
+                                        @if($service->is_paid == false)
+                                            <tr>
+                                                <td><div class="btn">{{ $service->vehicle->number_plate }}</div></td>
+                                                <td><div class="btn">{{ $service->type }}</div></td>
+                                                <td><div class="btn">{{ $service->description }}</div></td>
+                                                <td><div class="btn">{{ $service->time_start }}</div></td>
+                                                <td><div class="btn">{{ $service->time_end }}</div></td>
+                                                <td><div class="btn">{{ $service->employee->first_name }} {{ $service->employee->last_name }}</div></td>
+                                                <td><div class="btn">@if($service->is_cleared == false)
+                                                                        @switch($service->is_in_progress)
+                                                                            @case (0)
+                                                                                <span style="background:orange; padding:5px; border-radius:10%">Waiting...</span>
+                                                                                @break
+                                                                            @case (1)
+                                                                                <span style="background:green; padding:5px; border-radius:10%">In_Progress</span>
+                                                                                @break
+                                                                            @default
+                                                                                <span style="background:orange; padding:5px; border-radius:10%">Waiting...</span>
+                                                                                @endswitch
+                                                                            </div></td>
+                                                                        @else
+                                                                        <span style="background:#b1d1ea; padding:5px; border-radius:10%">completed</span>
+                                                                        @endif
+                                                <td>
+                                                    @if($service->is_cleared == false)
+                                                        <form action="/service/{{$service->id}}">
+                                                            <button type="submit" name="edit" class="btn btn-primary" style="margin:2px">Edit </button>
+                                                            <button type="submit" onclick="return confirm('Are you sure you want to Remove?');" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
+                                                            {{ csrf_field() }}
+                                                        </form>
+                                                    @else
+                                                        <form action="/invoice">
+                                                            <button type="submit" name="invoice" class="btn btn-primary" style="margin:2px">Invoice </button>
+                                                            {{ csrf_field() }}
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 @else
                                     <tr>                                                 

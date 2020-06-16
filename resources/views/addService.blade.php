@@ -68,11 +68,11 @@
                             <div class="col-md-6">
                                 <select class="custom-select" id="service_area" name="service_area">
                                     <option selected>Select Area of Attention...</option>
-                                    <option value="Body work">Body work</option>
+                                    <option value="Body">Body work</option>
                                     <option value="Engine">Engine</option>
                                     <option value="Electrical">Electrical</option>
-                                    <option value="General Maintainace">General Maintainace (like oil change)</option>
-                                    <option value="Wheel Alignment">Wheel Alignment</option>
+                                    <option value="General">General Maintainace (like oil change)</option>
+                                    <option value="Wheel">Wheel Alignment</option>
                                 </select>
                                 @error('area')
                                     <span class="invalid-feedback" role="alert">
@@ -112,7 +112,7 @@
                             <label for="time_start" class="col-md-4 col-form-label text-md-right">{{ __('Set Start Time') }}</label>
 
                             <div class="col-md-6">
-                                <input id="time_start" type="time" class="form-control @error('time_start') is-invalid @enderror" name="time_start" required autocomplete="time_start">
+                                <input id="time_start" type="time" min="08:00" max="18:00"class="form-control @error('time_start') is-invalid @enderror" name="time_start" required autocomplete="time_start">
 
                                 @error('time_start')
                                     <span class="invalid-feedback" role="alert">
@@ -163,7 +163,7 @@
             }, function (data, status) {
                 
                 const container = document.getElementById('employee_list');
-                container.innerHTML = ''
+                container.innerHTML = '';
                 data.result.forEach((employee) => {
                     // Create card element
                     const card = document.createElement('div');
@@ -171,7 +171,7 @@
 
                     // Construct card content
                     const content = `
-                        <div class="card" style="width: 200px; height:380px; margin:10px">
+                        <div class="card" style="width: 200px; height:380px; margin:2px">
                             <i class="fa fa-user" class="card-img-top" aria-hidden="true" style="font-size:10em; margin-left:auto;margin-right:auto;"></i>
                             <div class="card-body text-center">
                                 <h5 class="card-title">${employee.first_name} ${employee.last_name}</h5>

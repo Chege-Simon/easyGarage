@@ -69,11 +69,11 @@
                             <div class="col-md-6">
                                 <select class="custom-select" id="service_area" name="service_area">
                                     <option selected>{{ $service->service_area }}</option>
-                                    <option value="Body work">Body work</option>
+                                    <option value="Body">Body work</option>
                                     <option value="Engine">Engine</option>
                                     <option value="Electrical">Electrical</option>
-                                    <option value="General Maintainace">General Maintainace (like oil change)</option>
-                                    <option value="Wheel Alignment">Wheel Alignment</option>
+                                    <option value="General">General Maintainace (like oil change)</option>
+                                    <option value="Wheel">Wheel Alignment</option>
                                 </select>
                                 @error('area')
                                     <span class="invalid-feedback" role="alert">

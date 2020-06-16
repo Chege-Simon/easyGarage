@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -84,7 +85,7 @@
         <br>
         <div class="row">
             <div class="col-sm-4"></div>
-            <nav class="nav nav-tabs col-sm-4 h5">   
+            <nav class="nav nav-tabs col-sm-5 h5">   
                 @if (\Request::is('vehicle') || \Request::is('vehicle/*'))         
                     <a href="/vehicle" class="nav-item nav-link active">
                         <i class="fa fa-car"></i> Vehicles
@@ -105,12 +106,12 @@
                 @endif
                 <!-- remember to change when you change the info page -->
                 @if (\Request::is('profile') || \Request::is('profile/*')) 
-                    <a href="/profile" class="nav-item nav-link active" >
+                    <a href="/invoice" class="nav-item nav-link active" >
                         <i class="fa fa-info"></i> Info
                     </a>
                 @else
-                    <a href="/profile" class="nav-item nav-link" >
-                        <i class="fa fa-info"></i> Info
+                    <a href="/invoice" class="nav-item nav-link" >
+                        <i class="fa fa-info"></i> Pending Invoices
                     </a>
                 @endif
                 @if (\Request::is('assistant/*') || \Request::is('assistant')) 
@@ -123,7 +124,7 @@
                     </a>
                 @endif
             </nav>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-3"></div>
         </div>
         <br>
         @include('flashMessages')

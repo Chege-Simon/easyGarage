@@ -43,5 +43,7 @@ Route::get('/service/add','ServicesController@add');
 Route::post('/service/request','ServicesController@request');
 Route::get('/service/{service}','ServicesController@edit');
 Route::post('/service/{service}','ServicesController@update');
+Route::post('/employee','ServicesController@employee_list');
 
-Route::post('/employee','ServicesController@cemployee_list');
+Route::get('/invoice','InvoicesController@index');
+Route::post('/invoice/{service}','InvoicesController@pay');
