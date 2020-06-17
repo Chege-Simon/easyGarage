@@ -46,10 +46,10 @@ class ProfilesController extends Controller
             'email' => ['required', 'string', 'email', 'max:255']
         ]);
          
-        if($request->email != $user->email && $request->validate(['email' => ['unique:users']])){
-            return Redirect::to('/profile/edit')->with('warning','Email alreasy used!');
-        }else if($request->national_id != $user->national_id && $request->validate(['national_id' => ['unique:users']])){
-            return Redirect::to('/profile/edit')->with('warning','National ID alreasy used!');
+        if($request->email != $user->email && !$request->validate(['email' => ['unique:users']])){
+            return Redirect::to('/profile/edit')->with('warning','Email already used!');
+        }else if($request->national_id != $user->national_id && !$request->validate(['national_id' => ['unique:users']])){
+            return Redirect::to('/profile/edit')->with('warning','National ID already used!');
         }
         $update = ['first_name' => $request->first_name,'last_name' => $request->last_name, 'email' => $request->email, 'national_id' => $request->national_id];
         User::where('id',$id)->update($update);
