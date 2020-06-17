@@ -60,7 +60,7 @@ class ServicesController extends Controller
             'description' => ['required', 'string', 'max:255'],
             'service_area' => ['required', 'string', 'max:255'],
             'date_set' => 'date_format:Y-m-d|after_or_equal:today',
-            'time_start' => 'date_format:H:i|after_or_equal:'.date("H:i"),
+            'time_start' => 'date_format:H:i',
             'employee_id' => ['required','integer'],
             'vehicle_id' => ['required','integer']
         ]);
@@ -83,20 +83,40 @@ class ServicesController extends Controller
                 break;
         }
         // dd($request->time_start, $time_end);
-        $service = new Service();
-        $service->type = $request->type;
-        $service->description = $request->description;
-        $service->service_area = $request->service_area;
-        $service->date_set = $request->date_set;
-        $service->time_start = $request->time_start;
-        $service->time_end = $time_end;
-        $service->employee_id = $request->employee_id;
-        $service->vehicle_id = $request->vehicle_id;
-        $service->is_in_progress = false;
-        $service->is_cleared = false;
-        $service->is_paid = false;
-        $service->save();
-        return Redirect::to('service')->with('success','Great! service Registered successfully');
+        if($service->date_set > $today){
+            $service = new Service();
+            $service->type = $request->type;
+            $service->description = $request->description;
+            $service->service_area = $request->service_area;
+            $service->date_set = $request->date_set;
+            $service->time_start = $request->time_start;
+            $service->time_end = $time_end;
+            $service->employee_id = $request->employee_id;
+            $service->vehicle_id = $request->vehicle_id;
+            $service->is_in_progress = false;
+            $service->is_cleared = false;
+            $service->is_paid = false;
+            $service->save();
+            return Redirect::to('service')->with('success','Great! service Registered successfully');
+        }
+        else if($service->date_set == $today && $service->time_start > $now){
+            $service = new Service();
+            $service->type = $request->type;
+            $service->description = $request->description;
+            $service->service_area = $request->service_area;
+            $service->date_set = $request->date_set;
+            $service->time_start = $request->time_start;
+            $service->time_end = $time_end;
+            $service->employee_id = $request->employee_id;
+            $service->vehicle_id = $request->vehicle_id;
+            $service->is_in_progress = false;
+            $service->is_cleared = false;
+            $service->is_paid = false;
+            $service->save();
+            return Redirect::to('service')->with('success','Great! service Registered successfully');
+        }else if($service->date_set == $today && $service->time_start <= $now){
+            return Redirect::to('service/add')->with('warning','Check you date and time. Can\'t set time of the past!');
+        }
     }
     public function edit(Vehicle $vehicle, Request $request, $service)
     {
@@ -149,6 +169,8 @@ class ServicesController extends Controller
             'employee_id' => ['required','integer'],
             'vehicle_id' => ['required','integer']
         ]);	
+        if($service->date_set > $today){
+            $service = new Service();
             $service->type = $request->type;
             $service->description = $request->description;
             $service->service_area = $request->service_area;
@@ -158,7 +180,23 @@ class ServicesController extends Controller
             $service->employee_id = $request->employee_id;
             $service->vehicle_id = $request->vehicle_id;
             $service->save();
-            return Redirect::to('service')->with('success','Great! Service Details changed successfully');
+            return Redirect::to('service')->with('success','Great! service details changed successfully');
+        }
+        else if($service->date_set == $today && $service->time_start > $now){
+            $service = new Service();
+            $service->type = $request->type;
+            $service->description = $request->description;
+            $service->service_area = $request->service_area;
+            $service->date_set = $request->date_set;
+            $service->time_start = $request->time_start;
+            $service->time_end = $time_end;
+            $service->employee_id = $request->employee_id;
+            $service->vehicle_id = $request->vehicle_id;
+            $service->save();
+            return Redirect::to('service')->with('success','Great! service details changed successfully');
+        }else if($service->date_set == $today && $service->time_start <= $now){
+            return Redirect::to('service/add')->with('warning','Check you date and time. Can\'t set time of the past!');
+        }
     	}    	
     }
     public function ajax()
