@@ -52,10 +52,6 @@ class ServicesController extends Controller
     }
     public function request(Request $request)
     {   
-        
-        if(!$request->employee_id){
-            return Redirect::to('service')->with('error','Please choose a mechanic !');
-        }
         date_default_timezone_set('Africa/Nairobi');         
         $id = Auth::user()->id;
         // dd($request->time_start);
@@ -87,6 +83,10 @@ class ServicesController extends Controller
                 break;
         }
         // dd($request->time_start, $time_end);
+         
+        if(!$request->employee_id){
+            return Redirect::to('service/add')->with('error','Please choose a mechanic !');
+        }
         if($service->date_set > $today){
             $service = new Service();
             $service->type = $request->type;
@@ -118,7 +118,7 @@ class ServicesController extends Controller
             $service->is_paid = false;
             $service->save();
             return Redirect::to('service')->with('success','Great! service Registered successfully');
-        }else if($service->date_set == $today && $service->time_start <= $now){
+        }else if($service->date_set == $today || $service->date_set < $today && $service->time_start <= $now){
             return Redirect::to('service/add')->with('warning','Check you date and time. Can\'t set time of the past!');
         }
     }
