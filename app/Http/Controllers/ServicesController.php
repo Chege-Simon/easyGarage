@@ -52,6 +52,10 @@ class ServicesController extends Controller
     }
     public function request(Request $request)
     {   
+        
+        if(!$request->employee_id){
+            return Redirect::to('service')->with('warning','Please choose a mechanic!');
+        }
         date_default_timezone_set('Africa/Nairobi');         
         $id = Auth::user()->id;
         // dd($request->time_start);
