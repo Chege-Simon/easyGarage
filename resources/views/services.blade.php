@@ -74,6 +74,11 @@
                                                             <button type="submit" onclick="return confirm('Are you sure you want to Remove?');" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
                                                             {{ csrf_field() }}
                                                         </form>
+                                                    @else if($service->is_in_progress)
+                                                        <form action="/invoice">
+                                                            <button type="submit" name="invoice" class="btn btn-secondary" style="margin:2px" disabled>Invoice </button>
+                                                            {{ csrf_field() }}
+                                                        </form>
                                                     @else
                                                         <form action="/invoice">
                                                             <button type="submit" name="invoice" class="btn btn-primary" style="margin:2px">Invoice </button>
