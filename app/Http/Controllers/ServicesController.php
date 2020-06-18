@@ -52,7 +52,9 @@ class ServicesController extends Controller
     }
     public function request(Request $request)
     {   
-        date_default_timezone_set('Africa/Nairobi');         
+        date_default_timezone_set('Africa/Nairobi');
+        $now = date("H:i:s");
+        $today = date("Y-m-d");        
         $id = Auth::user()->id;
         // dd($request->time_start);
         $request->validate([
@@ -139,8 +141,9 @@ class ServicesController extends Controller
     }
     public function update(Request $request, Service $service)
     {
-        
         date_default_timezone_set('Africa/Nairobi');
+        $now = date("H:i:s");
+        $today = date("Y-m-d");
     	if(isset($_POST['delete'])) {
     		$service->delete();
             return Redirect::to('service')->with('warning','The Service has been deleted succesfully');
