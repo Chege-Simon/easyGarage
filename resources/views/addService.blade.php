@@ -157,7 +157,7 @@
         }
     })
         $('#service_area').change(function () {    
-            var service_area = $(this).val(); 
+            var service_area = $(this).val().toLowerCase(); 
             $.post("/employee",{
                 service_area: service_area
             }, function (data, status) {
