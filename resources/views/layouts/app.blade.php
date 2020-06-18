@@ -105,9 +105,9 @@
                     </a>
                 @endif
                 <!-- remember to change when you change the info page -->
-                @if (\Request::is('profile') || \Request::is('profile/*')) 
+                @if (\Request::is('invoice') || \Request::is('invoice/*')) 
                     <a href="/invoice" class="nav-item nav-link active" >
-                        <i class="fa fa-info"></i> Info
+                        <i class="fa fa-info"></i> Pending Invoices
                     </a>
                 @else
                     <a href="/invoice" class="nav-item nav-link" >
