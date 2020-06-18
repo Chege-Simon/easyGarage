@@ -87,7 +87,7 @@ class ServicesController extends Controller
         if(!$request->employee_id){
             return Redirect::to('service/add')->with('error','Please choose a mechanic !');
         }
-        if($service->date_set > $today){
+        if($request->date_set > $today){
             $service = new Service();
             $service->type = $request->type;
             $service->description = $request->description;
@@ -103,7 +103,7 @@ class ServicesController extends Controller
             $service->save();
             return Redirect::to('service')->with('success','Great! service Registered successfully');
         }
-        else if($service->date_set == $today && $service->time_start > $now){
+        else if($request->date_set == $today && $request->time_start > $now){
             $service = new Service();
             $service->type = $request->type;
             $service->description = $request->description;
@@ -173,7 +173,7 @@ class ServicesController extends Controller
             'employee_id' => ['required','integer'],
             'vehicle_id' => ['required','integer']
         ]);	
-        if($service->date_set > $today){
+        if($request->date_set > $today){
             $service = new Service();
             $service->type = $request->type;
             $service->description = $request->description;
@@ -186,7 +186,7 @@ class ServicesController extends Controller
             $service->save();
             return Redirect::to('service')->with('success','Great! service details changed successfully');
         }
-        else if($service->date_set == $today && $service->time_start > $now){
+        else if($request->date_set == $today && $request->time_start > $now){
             $service = new Service();
             $service->type = $request->type;
             $service->description = $request->description;
@@ -198,7 +198,7 @@ class ServicesController extends Controller
             $service->vehicle_id = $request->vehicle_id;
             $service->save();
             return Redirect::to('service')->with('success','Great! service details changed successfully');
-        }else if($service->date_set == $today && $service->time_start <= $now){
+        }else if($request->date_set == $today && $request->time_start <= $now){
             return Redirect::to('service/add')->with('warning','Check you date and time. Can\'t set time of the past!');
         }
     	}    	
