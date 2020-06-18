@@ -79,7 +79,7 @@
                                                             <button type="submit" name="invoice" class="btn btn-secondary" style="margin:2px" disabled>Invoice </button>
                                                             {{ csrf_field() }}
                                                         </form>
-                                                    @else
+                                                    @else if($service->is_cleared)
                                                         <form action="/invoice">
                                                             <button type="submit" name="invoice" class="btn btn-primary" style="margin:2px">Invoice </button>
                                                             {{ csrf_field() }}
