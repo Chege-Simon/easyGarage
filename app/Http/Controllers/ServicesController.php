@@ -209,7 +209,7 @@ class ServicesController extends Controller
     }
     public function employee_list(Request $request)
     {
-        $data = strtolower(Employee::where('speciality','like','%'.$request->service_area.'%')->take(3)->orderBy('rating', 'desc')->get());
+        $data = Employee::where('speciality','like','%'.$request->service_area.'%')->take(3)->orderBy('rating', 'desc')->get();
         return response()->json(['result'=>$data]);
     }
 }
