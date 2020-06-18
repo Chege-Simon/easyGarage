@@ -47,6 +47,7 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
                     @endif
                 @endforeach
             @endforeach

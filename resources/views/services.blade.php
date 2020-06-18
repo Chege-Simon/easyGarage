@@ -74,12 +74,12 @@
                                                             <button type="submit" onclick="return confirm('Are you sure you want to Remove?');" style="margin:2px" name="delete" formmethod="POST" class="btn btn-danger">Delete</button>
                                                             {{ csrf_field() }}
                                                         </form>
-                                                    @else if($service->is_in_progress)
+                                                    @elseif($service->is_in_progress && $service->is_cleared == false)
                                                         <form action="/invoice">
                                                             <button type="submit" name="invoice" class="btn btn-secondary" style="margin:2px" disabled>Invoice </button>
                                                             {{ csrf_field() }}
                                                         </form>
-                                                    @else if($service->is_cleared)
+                                                    @elseif($service->is_cleared)
                                                         <form action="/invoice">
                                                             <button type="submit" name="invoice" class="btn btn-primary" style="margin:2px">Invoice </button>
                                                             {{ csrf_field() }}
